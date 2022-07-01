@@ -13,7 +13,8 @@ def oauth_redirect():
     clientID= os.environ.get('CLIENT_ID', '')
     clientSecret = os.environ.get('CLIENT_SECRET','')
     client_secret_combined = clientID + ":" + clientSecret
-    client_secret_combined_bytes = client_secret_combined.encode('ascii').b64encode(client_secret_combined)
+    client_secret_combined_bytes = client_secret_combined.encode('ascii')
+    client_secret_combined_bytes = base64.b64encode(client_secret_combined_bytes)
     client_secret_combined_str = client_secret_combined_bytes.decode('ascii')
     code = request.args.key('code', None)
     data = {'code': code, 'grant_type': 'authorization_code', 'redirect_uri': 'https://7zljzja270.execute-api.us-west-1.amazonaws.com/me'}
