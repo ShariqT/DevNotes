@@ -23,6 +23,8 @@ def oauth_redirect():
     if res.status_code == 200:
         access_token_data = res.json()
         return render_template("debug.html", data=access_token_data)
+    else:
+        return render_template("debug.html", data=res.json())
 
 
 app.run()
