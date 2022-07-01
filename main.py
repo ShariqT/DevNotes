@@ -24,7 +24,9 @@ def oauth_redirect():
         access_token_data = res.json()
         return render_template("debug.html", data=access_token_data)
     else:
-        return render_template("debug.html", data=res.json())
+        debug = res.json()
+        debug['env'] = os.enviorn
+        return render_template("debug.html", data=debug)
 
 
 app.run()
