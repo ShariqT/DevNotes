@@ -10,8 +10,8 @@ def start():
 
 @app.route("/redirect")
 def oauth_redirect():
-    clientID= os.environ.get('CLIENT_ID', '')
-    clientSecret = os.environ.get('CLIENT_SECRET','')
+    clientID = os.environ.get('CLIENT_ID')
+    clientSecret = os.environ.get('CLIENT_SECRET')
     client_secret_combined = clientID + ":" + clientSecret
     client_secret_combined_bytes = client_secret_combined.encode('ascii')
     client_secret_combined_bytes = base64.b64encode(client_secret_combined_bytes)
@@ -26,6 +26,7 @@ def oauth_redirect():
     else:
         debug = res.json()
         debug['env'] = os.environ
+        debug['client_secret_combined'] = client_secret_combined
         return render_template("debug.html", data=debug)
 
 
