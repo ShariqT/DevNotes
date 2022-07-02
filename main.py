@@ -4,6 +4,14 @@ import base64
 import os
 
 app = Flask(__name__)
+
+def get_deeplink(access_token):
+    deeplink_api_url = 'https://api.zoom.us/v2/zoomapp/deeplink/'
+    data = {'action': 'go'}
+    headers = {'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json' }
+    res = requests.post(deeplink_api_url, data=data, headers=headers)
+    return res.json()
+
 @app.route('/')
 def start():
     return render_template("index.html")
@@ -22,7 +30,8 @@ def oauth_redirect():
     res = requests.post('https://zoom.us/oauth/token', data=data, headers=headers)
     if res.status_code == 200:
         access_token_data = res.json()
-        return render_template("debug.html", data=access_token_data)
+        deeplink = get_deeplink(access_token_data['access_token'])
+        return render_template("debug.html", data=deeplink)
     else:
         debug = res.json()
         debug['env'] = os.environ
