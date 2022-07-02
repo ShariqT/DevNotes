@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, make_response
 import requests
 import base64
 import os
@@ -16,7 +16,13 @@ def get_deeplink(access_token):
 @app.route('/')
 def start():
     print("was called")
-    return render_template("index.html")
+    res = make_response(render_template('index.html'))
+    res.headers['referrerPolicy'] = 'same-origin'
+    res.headers['crossOriginEmbedderPolicy'] = False
+    res.headers['Strict-Transport-Security'] = 'max-age=31536000'
+    res.headers['X-Content-Type-Options'] = 'nosniff'
+    res.headers['Content-Security-Policy'] = "default-src 'self'; styleSrc 'self'; scriptSrc 'self'; imgSrc 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'"
+    return res
 
 @app.route("/redirect")
 def oauth_redirect():
