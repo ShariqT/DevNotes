@@ -11,7 +11,7 @@ def get_deeplink(access_token):
     data = json.dumps({'action': 'go'})
     headers = {'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json' }
     res = requests.post(deeplink_api_url, data=data, headers=headers)
-    return res.text
+    return json.loads(res.text)
 
 @app.route('/')
 def start():
@@ -32,8 +32,8 @@ def oauth_redirect():
     if res.status_code == 200:
         access_token_data = res.json()
         deeplink = get_deeplink(access_token_data['access_token'])
-        return render_template("debug.html", data=deeplink)
-        # return render_template("go.html", data=deeplink)
+        # return render_template("debug.html", data=deeplink)
+        return render_template("go.html", data=deeplink)
     else:
         debug = res.json()
         debug['env'] = os.environ
