@@ -10,7 +10,7 @@ def get_deeplink(access_token):
     data = {'action': 'go'}
     headers = {'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json' }
     res = requests.post(deeplink_api_url, data=data, headers=headers)
-    return res.json()
+    return res.text
 
 @app.route('/')
 def start():
