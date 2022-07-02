@@ -18,7 +18,7 @@ def oauth_redirect():
     client_secret_combined_str = client_secret_combined_bytes.decode('ascii')
     code = request.args.get('code', None)
     data = {'code': code, 'grant_type': 'authorization_code', 'redirect_uri': 'https://7zljzja270.execute-api.us-west-1.amazonaws.com/me'}
-    headers = {'Authorization': client_secret_combined_str }
+    headers = {'Authorization': "Basic " + client_secret_combined_str }
     res = requests.post('https://zoom.us/oauth/token', data=data, headers=headers)
     if res.status_code == 200:
         access_token_data = res.json()
