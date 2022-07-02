@@ -17,7 +17,7 @@ def get_deeplink(access_token):
 def start():
     print("was called")
     res = make_response(render_template('index.html'))
-    res.headers['referrerPolicy'] = 'same-origin'
+    res.headers['Referrer-Policy'] = 'same-origin'
     res.headers['crossOriginEmbedderPolicy'] = False
     res.headers['Strict-Transport-Security'] = 'max-age=31536000'
     res.headers['X-Content-Type-Options'] = 'nosniff'
