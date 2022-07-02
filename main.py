@@ -32,8 +32,8 @@ def oauth_redirect():
     if res.status_code == 200:
         access_token_data = res.json()
         deeplink = get_deeplink(access_token_data['access_token'])
-        # return render_template("debug.html", data=deeplink)
-        return render_template("go.html", data=deeplink)
+        return render_template("debug.html", data=deeplink)
+        # return render_template("go.html", data=deeplink)
     else:
         debug = res.json()
         debug['env'] = os.environ
