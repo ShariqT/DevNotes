@@ -15,6 +15,7 @@ def get_deeplink(access_token):
 
 @app.route('/')
 def start():
+    print("was called")
     return render_template("index.html")
 
 @app.route("/redirect")
