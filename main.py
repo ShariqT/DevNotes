@@ -62,12 +62,15 @@ def start():
     cipher_text = urlsafe_b64decode(request.headers['X-Zoom-App-Context'])
     data_json = decrypt(cipher_text, clientSecret)
     data_obj = json.loads(data_json)
-    res = make_response(render_template('index.html', data=data_obj))
+    if 'action' in data_obj.keys():
+        res = make_response(render_template('index.html', data=data_obj))
+    else:
+        res = make_response(render_template('meeting.html', data=data_obj))
     res.headers['Referrer-Policy'] = 'same-origin'
     res.headers['crossOriginEmbedderPolicy'] = False
     res.headers['Strict-Transport-Security'] = 'max-age=31536000'
     res.headers['X-Content-Type-Options'] = 'nosniff'
-    res.headers['Content-Security-Policy'] = "default-src 'self'; styleSrc 'self'; scriptSrc 'self'; imgSrc 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'"
+    res.headers['Content-Security-Policy'] = "default-src 'self'; styleSrc 'self'; scriptSrc 'self' appssdk.zoom.us; imgSrc 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'"
     return res
 
 @app.route("/redirect")
