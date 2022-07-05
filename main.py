@@ -70,7 +70,7 @@ def start():
     res.headers['crossOriginEmbedderPolicy'] = False
     res.headers['Strict-Transport-Security'] = 'max-age=31536000'
     res.headers['X-Content-Type-Options'] = 'nosniff'
-    res.headers['Content-Security-Policy'] = "default-src 'self' https://appssdk.zoom.us; style-src 'self'; script-src 'self' appssdk.zoom.us; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'"
+    res.headers['Content-Security-Policy'] = "default-src 'self', https://appssdk.zoom.us; style-src 'self'; script-src 'self' appssdk.zoom.us; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'"
     return res
 
 @app.route("/redirect")
