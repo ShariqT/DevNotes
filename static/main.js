@@ -9,4 +9,4 @@ async function configureApp() {
   }
 
 
-let resp = await configureApp();
+let resp = await configureApp()
