@@ -59,7 +59,7 @@ def get_deeplink(access_token):
 def start():
     clientSecret = os.environ.get('CLIENT_SECRET')
 
-    cipher_text = urlsafe_b64decode(b64_cipher_context)
+    cipher_text = urlsafe_b64decode(request.headers['X-Zoom-App-Context'])
     data_json = decrypt(cipher_text, clientSecret)
     data_obj = json.loads(data_json)
     res = make_response(render_template('index.html'), data=data_obj)
