@@ -5,4 +5,8 @@ async function configureApp() {
       capabilities: ["shareApp", "getMeetingParticipants"]
     })
     console.log(configResponse)
+    return configResponse
   }
+
+
+var resp = await configureApp();
