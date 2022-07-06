@@ -1,4 +1,4 @@
-async function configureApp() {
+async function configureApp {
     const configResponse = await zoomSdk.config({
       version: "0.16",
       popoutSize: {width: 480, height: 360},
@@ -6,8 +6,8 @@ async function configureApp() {
     })
     console.log(configResponse)
     return configResponse
-  }
+}
 
 
 let resp;
-resp = await configureApp()
+resp = await configureApp();
