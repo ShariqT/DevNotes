@@ -62,7 +62,8 @@ def start():
     cipher_text = urlsafe_b64decode(request.headers['X-Zoom-App-Context'])
     data_json = decrypt(cipher_text, clientSecret)
     data_obj = json.loads(data_json)
-    if 'action' in data_obj.keys():
+    print(data_obj.keys())
+    if 'act' in data_obj.keys():
         res = make_response(render_template('index.html', data=data_obj))
     else:
         res = make_response(render_template('meeting.html', data=data_obj))
@@ -82,7 +83,7 @@ def oauth_redirect():
     client_secret_combined_bytes = base64.b64encode(client_secret_combined_bytes)
     client_secret_combined_str = client_secret_combined_bytes.decode('ascii')
     code = request.args.get('code', None)
-    data = {'code': code, 'grant_type': 'authorization_code', 'redirect_uri': 'https://7zljzja270.execute-api.us-west-1.amazonaws.com/redirect'}
+    data = {'code': code, 'grant_type': 'authorization_code', 'redirect_uri': 'https://sad-spoons-act-104-34-86-183.loca.lt/redirect'}
     headers = {'Authorization': "Basic " + client_secret_combined_str }
     res = requests.post('https://zoom.us/oauth/token', data=data, headers=headers)
     if res.status_code == 200:
