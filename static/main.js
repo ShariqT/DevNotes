@@ -1,3 +1,11 @@
+function lookForHost(meetinglist){
+    for(let i =0; i < meetinglist.length;i++){
+        if(meetinglist[i].role == 'host') {
+            return meetinglist[i]
+        }
+    }
+}
+
 async function configureApp(){
     let host
     const configResponse = await zoomSdk.config({
@@ -10,15 +18,15 @@ async function configureApp(){
     console.log(myapis)
     const meetings = await zoomSdk.getMeetingParticipants()
     console.log(meetings.participants)
-    host = meetings.participants[0]
+    host = lookForHost(meetings.participants)
     const meetingSDK = await zoomSdk.getMeetingContext();
     console.log(meetingSDK)
     var sound = new Howl({
       src: ['static/applause.mp3']
     });
-    zoomSdk.onParticipantChange((event) => {
-        host = event.participants[0] // this is the host
-      });
+    // zoomSdk.onParticipantChange((event) => {
+    //     host = lookevent.participants[0] // this is the host
+    //   });
     zoomSdk.onReaction(function(evt){
         console.log(evt)
         console.log(host)
